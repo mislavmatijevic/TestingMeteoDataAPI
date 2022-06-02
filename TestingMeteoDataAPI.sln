@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32319.34
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingMeteoDataAPI", "TestingMeteoDataAPI\TestingMeteoDataAPI.csproj", "{AB02A5BD-9B23-4691-99DC-CCE5996D7B52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JRC", "JrcPristup\JRC.csproj", "{17CF6C8B-5588-4247-9FBB-820112DD3A04}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AB02A5BD-9B23-4691-99DC-CCE5996D7B52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB02A5BD-9B23-4691-99DC-CCE5996D7B52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB02A5BD-9B23-4691-99DC-CCE5996D7B52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB02A5BD-9B23-4691-99DC-CCE5996D7B52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17CF6C8B-5588-4247-9FBB-820112DD3A04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17CF6C8B-5588-4247-9FBB-820112DD3A04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17CF6C8B-5588-4247-9FBB-820112DD3A04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17CF6C8B-5588-4247-9FBB-820112DD3A04}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5E55F1B4-1D4F-4560-886B-F59ED2EA4DDD}
+	EndGlobalSection
+EndGlobal
