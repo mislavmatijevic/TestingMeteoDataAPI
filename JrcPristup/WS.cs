@@ -1,15 +1,11 @@
-﻿using Jrc.Classes;
+﻿using JRC.Classes;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JRC
 {
-    public enum JrcOutputFormats
+    internal enum JrcOutputFormats
     {
         basic,
         csv,
@@ -26,24 +22,21 @@ namespace JRC
     {
         static HttpClient client = new HttpClient();
 
-        public static async Task<Root> GetDataAsync(string latitude, string longitude, string startYear = "2005", string endYear = "2020", string useHorizon = "1", JrcOutputFormats outputFormat = JrcOutputFormats.json)
+        public static async Task<Root> GetDataAsync(string latitude, string longitude, string startYear = "2005", string endYear = "2020", string useHorizon = "1", string outputFormat = "json")
         {
-            // TODO: CheckParameters();
+            JrcParameterChecker parameterChecker = new JrcParameterChecker();
+            JrcServiceParameters parameters = parameterChecker.GetParameters(latitude, longitude, startYear, endYear, useHorizon, outputFormat);
 
-            string url = PrepareURL(latitude, longitude, startYear, endYear, useHorizon, outputFormat);
+            string url = PrepareURL(parameters);
             HttpResponseMessage response = await client.GetAsync(url);
             response.EnsureSuccessStatusCode();
             string jsonResponse = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<Root>(jsonResponse);
         }
 
-        private static string PrepareURL(string latitude, string longitude, string startYear, string endYear, string useHorizon, JrcOutputFormats outputFormat)
+        private static string PrepareURL(JrcServiceParameters parameters)
         {
-            if (startYear.CompareTo("2005") == -1 || endYear.CompareTo("2020") == 1)
-            {
-                throw new ArgumentException("Problem s JRC web servisom! Godine moraju biti između 2005 i 2020.");
-            }
-            return $"https://re.jrc.ec.europa.eu/api/v5_2/tmy?lat={latitude}&lon={longitude}&startyear={startYear}&endyear={endYear}&usehorizon={useHorizon}&outputformat={outputFormat}&browser=0";
+            return $"https://re.jrc.ec.europa.eu/api/v5_2/tmy?lat={parameters.Latitude}&lon={parameters.Longitude}&startyear={parameters.StartYear}&endyear={parameters.EndYear}&usehorizon={parameters.UseHorizon}&outputformat={parameters.OutputFormat}&browser=0";
         }
     }
 }
