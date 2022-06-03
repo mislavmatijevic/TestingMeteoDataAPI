@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Jrc.Classes
+namespace JRC.Classes
 {
     public class Root
     {

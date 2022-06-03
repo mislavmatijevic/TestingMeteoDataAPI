@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace Jrc.Classes
+namespace JRC.Classes
 {
     public class Azimuth
     {
