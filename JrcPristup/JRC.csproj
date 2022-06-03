@@ -44,8 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\JrcServiceParameters.cs" />
     <Compile Include="Classes\Root.cs" />
     <Compile Include="Classes\Classes.cs" />
+    <Compile Include="Exceptions\JrcParameterException.cs" />
+    <Compile Include="JrcParameterChecker.cs" />
     <Compile Include="WS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
