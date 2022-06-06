@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace JRC.Classes
 {
-    public class Root
+    public class JrcResponse
     {
         [JsonProperty("inputs")]
         public Inputs Inputs { get; set; }

@@ -22,7 +22,7 @@ namespace JRC
     {
         static HttpClient client = new HttpClient();
 
-        public static async Task<Root> GetDataAsync(string latitude, string longitude, string startYear = "2005", string endYear = "2020", string useHorizon = "1", string outputFormat = "json")
+        public static async Task<JrcResponse> GetDataAsync(string latitude, string longitude, string startYear = "2005", string endYear = "2020", string useHorizon = "1", string outputFormat = "json")
         {
             JrcParameterChecker parameterChecker = new JrcParameterChecker();
             JrcServiceParameters parameters = parameterChecker.GetParameters(latitude, longitude, startYear, endYear, useHorizon, outputFormat);
@@ -31,7 +31,7 @@ namespace JRC
             HttpResponseMessage response = await client.GetAsync(url);
             response.EnsureSuccessStatusCode();
             string jsonResponse = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<Root>(jsonResponse);
+            return JsonConvert.DeserializeObject<JrcResponse>(jsonResponse);
         }
 
         private static string PrepareURL(JrcServiceParameters parameters)

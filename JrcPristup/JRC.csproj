@@ -49,7 +49,7 @@
     <Compile Include="Classes\JSON\JsonClass.cs" />
     <Compile Include="Classes\JSON\Meta.cs" />
     <Compile Include="Classes\JSON\Outputs.cs" />
-    <Compile Include="Classes\JSON\Root.cs" />
+    <Compile Include="Classes\JSON\JrcResponse.cs" />
     <Compile Include="Exceptions\JrcParameterException.cs" />
     <Compile Include="JrcParameterChecker.cs" />
     <Compile Include="WS.cs" />
