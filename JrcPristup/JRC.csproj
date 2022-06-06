@@ -44,9 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\JSON\Inputs.cs" />
     <Compile Include="Classes\JrcServiceParameters.cs" />
-    <Compile Include="Classes\Root.cs" />
-    <Compile Include="Classes\Classes.cs" />
+    <Compile Include="Classes\JSON\JsonClass.cs" />
+    <Compile Include="Classes\JSON\Meta.cs" />
+    <Compile Include="Classes\JSON\Outputs.cs" />
+    <Compile Include="Classes\JSON\Root.cs" />
     <Compile Include="Exceptions\JrcParameterException.cs" />
     <Compile Include="JrcParameterChecker.cs" />
     <Compile Include="WS.cs" />
