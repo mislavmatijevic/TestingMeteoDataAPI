@@ -8,12 +8,12 @@ namespace TestingMeteoDataAPI
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Unesite lokaciju ( lat-long ):");
+            Console.WriteLine("Unesite lokaciju ( lat,long ):");
             string unos = Console.ReadLine();
-            string[] coordinates = unos.Split('-');
+            string[] coordinates = unos.Split(',');
             Console.WriteLine("Pričekajte...");
 
-            Root root = null;
+            JrcResponse root = null;
             try
             {
                 root = PoveziSeNaWebServis(coordinates).GetAwaiter().GetResult();
@@ -29,11 +29,25 @@ namespace TestingMeteoDataAPI
 
             if (root != null)
             {
-                Console.WriteLine($"Odaberite sat u tipičnoj meteorološkoj godini (0-{root.Outputs.TmyHourly.Count}): ");
-                int index;
-                while ((index = int.Parse(Console.ReadLine())) != 0)
+                bool izlaz = false;
+                while (!izlaz)
                 {
-                    Console.WriteLine(root.Outputs.TmyHourly[index].ToString());
+                    PrikaziMeni();
+                    switch (Console.ReadKey(true).KeyChar)
+                    {
+                        case '1':
+                            Console.WriteLine($"Unesite broj odabranog sata u godini (0-8759) za podatke tipične meteorološke godine, -1 za prekid: ");
+
+                            int index;
+                            while (int.TryParse(Console.ReadLine(), out index) && index != -1)
+                            {
+                                Console.WriteLine(root.Outputs.TmyHourly[index].ToString());
+                            }
+                            break;
+                        case 'x':
+                            izlaz = true;
+                            break;
+                    }
                 }
             }
 
@@ -41,9 +55,15 @@ namespace TestingMeteoDataAPI
             Console.ReadKey();
         }
 
-        private static async Task<Root> PoveziSeNaWebServis(string[] coordinates)
+        private static async Task<JrcResponse> PoveziSeNaWebServis(string[] coordinates)
         {
             return await JRC.WS.GetDataAsync(coordinates[0], coordinates[1]);
+        }
+
+        private static void PrikaziMeni()
+        {
+            Console.WriteLine("1 - odabir podataka po danu u godini");
+            Console.WriteLine("x - izlaz");
         }
     }
 }
