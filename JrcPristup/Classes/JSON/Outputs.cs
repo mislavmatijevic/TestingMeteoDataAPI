@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace JrcPristup.Classes.JSON
+namespace JRC.Classes
 {
     public class Outputs : JsonClass
     {

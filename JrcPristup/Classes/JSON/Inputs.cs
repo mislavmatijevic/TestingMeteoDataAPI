@@ -1,7 +1,6 @@
-﻿using JrcPristup.Classes.JSON;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace JrcPristup.Classes
+namespace JRC.Classes
 {
     public class Inputs : JsonClass
     {

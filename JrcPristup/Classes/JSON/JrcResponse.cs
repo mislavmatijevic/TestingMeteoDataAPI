@@ -1,6 +1,4 @@
-﻿using JrcPristup.Classes;
-using JrcPristup.Classes.JSON;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace JRC.Classes
 {

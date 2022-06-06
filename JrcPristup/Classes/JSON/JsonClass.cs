@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace JrcPristup.Classes.JSON
+namespace JRC.Classes
 {
     public class JsonClass
     {
