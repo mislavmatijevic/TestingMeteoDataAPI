@@ -1,5 +1,6 @@
 ﻿using JRC.Classes;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace TestingMeteoDataAPI
@@ -36,12 +37,18 @@ namespace TestingMeteoDataAPI
                     switch (Console.ReadKey(true).KeyChar)
                     {
                         case '1':
-                            Console.WriteLine($"Unesite broj odabranog sata u godini (0-8759) za podatke tipične meteorološke godine, -1 za prekid: ");
+                            List<TmyHourly> meteoPodaciPoSatimaGodine = root.Outputs.TmyHourly;
+
+
+                            Console.WriteLine($"Unesite broj odabranog sata u godini (0-{meteoPodaciPoSatimaGodine.Count - 1}) za podatke tipične meteorološke godine, -1 za prekid: ");
 
                             int index;
                             while (int.TryParse(Console.ReadLine(), out index) && index != -1)
                             {
-                                Console.WriteLine(root.Outputs.TmyHourly[index].ToString());
+                                if (index < meteoPodaciPoSatimaGodine.Count)
+                                {
+                                    Console.WriteLine(meteoPodaciPoSatimaGodine[index].ToString());
+                                }
                             }
                             break;
                         case 'x':
