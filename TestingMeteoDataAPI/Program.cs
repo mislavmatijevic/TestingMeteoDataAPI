@@ -13,7 +13,7 @@ namespace TestingMeteoDataAPI
             string[] coordinates = unos.Split('-');
             Console.WriteLine("Pričekajte...");
 
-            Root root;
+            Root root = null;
             try
             {
                 root = PoveziSeNaWebServis(coordinates).GetAwaiter().GetResult();
@@ -25,6 +25,16 @@ namespace TestingMeteoDataAPI
             catch (Exception ex)
             {
                 Console.WriteLine("Neuspješan dohvat podataka! " + ex.Message);
+            }
+
+            if (root != null)
+            {
+                Console.WriteLine($"Odaberite sat u tipičnoj meteorološkoj godini (0-{root.Outputs.TmyHourly.Count}): ");
+                int index;
+                while ((index = int.Parse(Console.ReadLine())) != 0)
+                {
+                    Console.WriteLine(root.Outputs.TmyHourly[index].ToString());
+                }
             }
 
             Console.WriteLine("Pritisnuti bilo što za nastavak...");
