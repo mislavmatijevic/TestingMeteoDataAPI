@@ -22,10 +22,10 @@ namespace JRC
     {
         static HttpClient client = new HttpClient();
 
-        public static async Task<JrcResponse> GetDataAsync(string latitude, string longitude, string startYear = "2005", string endYear = "2020", string useHorizon = "1", string outputFormat = "json")
+        public static async Task<JrcResponse> GetDataAsync(string latitude, string longitude, string useHorizon = "1", string outputFormat = "json")
         {
             JrcParameterChecker parameterChecker = new JrcParameterChecker();
-            JrcServiceParameters parameters = parameterChecker.GetParameters(latitude, longitude, startYear, endYear, useHorizon, outputFormat);
+            JrcServiceParameters parameters = parameterChecker.GetParameters(latitude, longitude, useHorizon, outputFormat);
 
             string url = PrepareURL(parameters);
             HttpResponseMessage response = await client.GetAsync(url);
@@ -36,7 +36,7 @@ namespace JRC
 
         private static string PrepareURL(JrcServiceParameters parameters)
         {
-            return $"https://re.jrc.ec.europa.eu/api/v5_2/tmy?lat={parameters.Latitude}&lon={parameters.Longitude}&startyear={parameters.StartYear}&endyear={parameters.EndYear}&usehorizon={parameters.UseHorizon}&outputformat={parameters.OutputFormat}&browser=0";
+            return $"https://re.jrc.ec.europa.eu/api/v5_2/tmy?lat={parameters.Latitude}&lon={parameters.Longitude}&usehorizon={parameters.UseHorizon}&outputformat={parameters.OutputFormat}&browser=0";
         }
     }
 }
