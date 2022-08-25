@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace JrcPristup.Exceptions
+namespace JRC.Exceptions
 {
     internal class JrcParameterException : ArgumentException
     {

@@ -51,7 +51,9 @@
     <Compile Include="Classes\JSON\Meta.cs" />
     <Compile Include="Classes\JSON\Outputs.cs" />
     <Compile Include="Classes\JSON\JrcResponse.cs" />
+    <Compile Include="Exceptions\ApiKeyNotSetException.cs" />
     <Compile Include="Exceptions\JrcParameterException.cs" />
+    <Compile Include="Exceptions\LocationNotValidException.cs" />
     <Compile Include="JrcParameterChecker.cs" />
     <Compile Include="WS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
