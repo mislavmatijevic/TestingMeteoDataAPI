@@ -27,16 +27,22 @@ namespace JRC
             JrcParameterChecker parameterChecker = new JrcParameterChecker();
             JrcServiceParameters parameters = parameterChecker.GetParameters(latitude, longitude, useHorizon, outputFormat);
 
-            string url = PrepareURL(parameters);
-            HttpResponseMessage response = await client.GetAsync(url);
-            response.EnsureSuccessStatusCode();
-            string jsonResponse = await response.Content.ReadAsStringAsync();
+            string urlJrc = PrepareURL(parameters);
+            string jsonResponse = await getResponseAsJson(urlJrc);
             return JsonConvert.DeserializeObject<JrcResponse>(jsonResponse);
         }
 
         private static string PrepareURL(JrcServiceParameters parameters)
         {
             return $"https://re.jrc.ec.europa.eu/api/v5_2/tmy?lat={parameters.Latitude}&lon={parameters.Longitude}&usehorizon={parameters.UseHorizon}&outputformat={parameters.OutputFormat}&browser=0";
+        }
+
+        private static async Task<string> getResponseAsJson(string url)
+        {
+            HttpResponseMessage response = await client.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+            string jsonResponse = await response.Content.ReadAsStringAsync();
+            return jsonResponse;
         }
     }
 }
