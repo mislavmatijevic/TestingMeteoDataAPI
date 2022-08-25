@@ -1,6 +1,7 @@
 ﻿using JRC.Classes;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace TestingMeteoDataAPI
@@ -9,15 +10,16 @@ namespace TestingMeteoDataAPI
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Unesite lokaciju ( lat,long ):");
+            LoadEnvFile(".env");
+
+            Console.WriteLine("Unesite grad:");
             string unos = Console.ReadLine();
-            string[] coordinates = unos.Split(',');
             Console.WriteLine("Pričekajte...");
 
             JrcResponse root = null;
             try
             {
-                root = PoveziSeNaWebServis(coordinates).GetAwaiter().GetResult();
+                root = PoveziSeNaWebServis(unos).GetAwaiter().GetResult();
                 Console.WriteLine(
                     "elevation:\t\t" + root.Inputs.Location.Elevation + "\n" +
                     "radiation_db:\t\t" + root.Inputs.MeteoData.RadiationDb + "\n"
@@ -62,15 +64,29 @@ namespace TestingMeteoDataAPI
             Console.ReadKey();
         }
 
-        private static async Task<JrcResponse> PoveziSeNaWebServis(string[] coordinates)
+        private static async Task<JrcResponse> PoveziSeNaWebServis(string grad)
         {
-            return await JRC.WS.GetDataAsync(coordinates[0], coordinates[1]);
+            return await JRC.WS.GetDataAsync(grad);
         }
 
         private static void PrikaziMeni()
         {
             Console.WriteLine("1 - odabir podataka po danu u godini");
             Console.WriteLine("x - izlaz");
+        }
+
+        private static void LoadEnvFile(string envFilePath)
+        {
+            var envLines = File.ReadLines(envFilePath);
+            foreach (var line in envLines)
+            {
+                var keyValuePair = line.Split('=');
+                if (keyValuePair.Length == 2)
+                {
+                    Environment.SetEnvironmentVariable(keyValuePair[0], keyValuePair[1]);
+                }
+            }
+
         }
     }
 }

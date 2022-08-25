@@ -1,5 +1,7 @@
 ﻿using JRC.Classes;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -22,17 +24,27 @@ namespace JRC
     {
         static HttpClient client = new HttpClient();
 
-        public static async Task<JrcResponse> GetDataAsync(string latitude, string longitude, string useHorizon = "1", string outputFormat = "json")
+        public static async Task<JrcResponse> GetDataAsync(string cityName, string useHorizon = "1", string outputFormat = "json")
         {
-            JrcParameterChecker parameterChecker = new JrcParameterChecker();
-            JrcServiceParameters parameters = parameterChecker.GetParameters(latitude, longitude, useHorizon, outputFormat);
+            string urlLatLong = PrepareOpenWeatherMapURL(cityName);
+                
+            string owmJsonResponse = await getResponseAsJson(urlLatLong);
+            var owmResponse = JsonConvert.DeserializeObject<List<OpenWeatherMapResponse>>(owmJsonResponse)[0];
 
-            string urlJrc = PrepareURL(parameters);
-            string jsonResponse = await getResponseAsJson(urlJrc);
-            return JsonConvert.DeserializeObject<JrcResponse>(jsonResponse);
+            JrcParameterChecker parameterChecker = new JrcParameterChecker();
+            JrcServiceParameters parameters = parameterChecker.GetParameters(owmResponse.Lat, owmResponse.Lon, useHorizon, outputFormat);
+
+            string urlJrc = PrepareJrcURL(parameters);
+            string jrcJsonResponse = await getResponseAsJson(urlJrc);
+            return JsonConvert.DeserializeObject<JrcResponse>(jrcJsonResponse);
         }
 
-        private static string PrepareURL(JrcServiceParameters parameters)
+        private static string PrepareOpenWeatherMapURL(string cityName)
+        {
+            return $"http://api.openweathermap.org/geo/1.0/direct?q={cityName}&appid={Environment.GetEnvironmentVariable("OpenWeatherMapApiKey")}";
+        }
+
+        private static string PrepareJrcURL(JrcServiceParameters parameters)
         {
             return $"https://re.jrc.ec.europa.eu/api/v5_2/tmy?lat={parameters.Latitude}&lon={parameters.Longitude}&usehorizon={parameters.UseHorizon}&outputformat={parameters.OutputFormat}&browser=0";
         }
@@ -41,8 +53,7 @@ namespace JRC
         {
             HttpResponseMessage response = await client.GetAsync(url);
             response.EnsureSuccessStatusCode();
-            string jsonResponse = await response.Content.ReadAsStringAsync();
-            return jsonResponse;
+            return await response.Content.ReadAsStringAsync();
         }
     }
 }

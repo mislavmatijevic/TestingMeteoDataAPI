@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\JSON\OpenWeatherMapResponse.cs" />
     <Compile Include="Classes\JSON\Inputs.cs" />
     <Compile Include="Classes\JrcServiceParameters.cs" />
     <Compile Include="Classes\JSON\JsonClass.cs" />
